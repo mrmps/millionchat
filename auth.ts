@@ -1,5 +1,5 @@
 import NextAuth, { type DefaultSession } from 'next-auth'
-import GitHub from 'next-auth/providers/github'
+import TwitterProvider from "next-auth/providers/twitter";
 
 declare module 'next-auth' {
   interface Session {
@@ -14,7 +14,12 @@ export const {
   handlers: { GET, POST },
   auth
 } = NextAuth({
-  providers: [GitHub],
+  providers: [
+    TwitterProvider({
+      clientId: process.env.TWITTER_CLIENT_ID,
+      clientSecret: process.env.TWITTER_CLIENT_SECRET
+    })
+  ],
   callbacks: {
     jwt({ token, profile }) {
       if (profile) {
