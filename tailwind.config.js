@@ -15,6 +15,10 @@ module.exports = {
         sans: ['var(--font-geist-sans)'],
         mono: ['var(--font-geist-mono)']
       },
+      strokeWidth: {
+        '3': '3',
+        '4': '4',
+       },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

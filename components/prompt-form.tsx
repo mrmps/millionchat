@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/tooltip'
 import { IconArrowElbow, IconPlus } from '@/components/ui/icons'
 import { useRouter } from 'next/navigation'
+import { ArrowUpIcon } from '@heroicons/react/24/solid'
 
 export interface PromptProps
   extends Pick<UseChatHelpers, 'input' | 'setInput'> {
@@ -45,7 +46,7 @@ export function PromptForm({
       }}
       ref={formRef}
     >
-      <div className="relative flex flex-col w-full px-8 overflow-hidden max-h-60 grow bg-background sm:rounded-md sm:border sm:px-12">
+      <div className="relative flex flex-col w-full px-8 overflow-hidden max-h-60 grow bg-background sm:rounded-xl sm:border sm:px-12">
         <Tooltip>
           <TooltipTrigger asChild>
             <button
@@ -83,8 +84,9 @@ export function PromptForm({
                 type="submit"
                 size="icon"
                 disabled={isLoading || input === ''}
+                className="rounded-lg"
               >
-                <IconArrowElbow />
+                <ArrowUpIcon className="size-4 stroke-3" />
                 <span className="sr-only">Send message</span>
               </Button>
             </TooltipTrigger>

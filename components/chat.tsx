@@ -47,12 +47,12 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
       },
       onResponse(response) {
         if (response.status === 401) {
-          toast.error(response.statusText)
+          toast.error(response.statusText ?? 'Unknown Error')
         }
       },
       onFinish() {
         if (!path.includes('chat')) {
-          window.history.pushState({}, '', `/chat/${id}`)
+          router.replace(`/chat/${id}`)
         }
       }
     })
