@@ -16,19 +16,23 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { toast } from 'react-hot-toast'
 import { usePathname, useRouter } from 'next/navigation'
+import { JSONValue } from 'ai'
+import React from 'react'
 
 const IS_PREVIEW = process.env.VERCEL_ENV === 'preview'
 export interface ChatProps extends React.ComponentProps<'div'> {
   initialMessages?: Message[]
   id?: string
+  dataOriginal?: JSONValue[] | undefined
+  firstMessage?: Message
 }
 
-export function Chat({ id, initialMessages, className }: ChatProps) {
+export function Chat({ id, initialMessages, className, dataOriginal = []}: ChatProps) {
   const router = useRouter()
   const path = usePathname()
   const [previewToken, setPreviewToken] = useLocalStorage<string | null>(
@@ -43,25 +47,57 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
       id,
       body: {
         id,
-        previewToken
+        previewToken,
+        dataOriginal
       },
+      sendExtraMessageFields: true, // this adds id to user message
       onResponse(response) {
         if (response.status === 401) {
           toast.error(response.statusText ?? 'Unknown Error')
+        }
+
+        if (response.status === 429) {
+          toast.error(response.statusText ?? 'Rate Limit Exceeded')
+        }
+
+        if (response.status === 500) {
+          toast.error(response.statusText ?? 'Internal Server Error')
         }
       },
       onFinish() {
         if (!path.includes('chat')) {
           router.replace(`/chat/${id}`)
+        } 
+        else {
+          router.refresh()
         }
       }
     })
+
+    // if firstMessage is defined, send it
+    // useEffect(() => {
+    //   console.log('i fire once')
+    //   if (initialMessages?.length === 1 && !path.includes('chat')) {
+    //     //await a second
+    //     setTimeout(() => {
+    //       // append(firstMessage)
+    //       reload()
+    //     }, 200);
+    //   }
+    // }, [])
+    useEffect(() => {
+      var isStrict = (function() { return !this; })();
+      console.log("strict", isStrict);
+      console.log('i fire once')
+    }, [])
+
+
   return (
     <>
       <div className={cn('pb-[200px] pt-4 md:pt-10', className)}>
         {messages.length ? (
           <>
-            <ChatList messages={messages} />
+            <ChatList messages={messages} data={dataOriginal} isLoading={isLoading} />
             <ChatScrollAnchor trackVisibility={isLoading} />
           </>
         ) : (

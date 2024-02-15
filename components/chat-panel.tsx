@@ -84,11 +84,10 @@ export function ChatPanel({
             )
           )}
         </div>
-        <div className="px-4 sm:pt-0 sm:px-0 py-2 sm:pb-2 space-y-2 bg-background sm:bg-[#F8F8F8] dark:bg-zinc-950 sm:rounded-t-xl">
+        <div className="px-4 sm:pt-0 sm:px-0 py-2 sm:pb-2 space-y-2 bg-background sm:bg-[#F8F8F8] dark:bg-[#040B1A] sm:rounded-t-xl">
           <PromptForm
             onSubmit={async value => {
               await append({
-                id,
                 content: value,
                 role: 'user'
               })

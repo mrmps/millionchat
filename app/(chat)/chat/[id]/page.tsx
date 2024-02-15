@@ -1,9 +1,12 @@
+"use server"
+
 import { type Metadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
 
 import { auth } from '@/auth'
 import { getChat } from '@/app/actions'
 import { Chat } from '@/components/chat'
+import React from 'react'
 
 export interface ChatPageProps {
   params: {
@@ -43,5 +46,9 @@ export default async function ChatPage({ params }: ChatPageProps) {
     notFound()
   }
 
-  return <Chat id={chat.id} initialMessages={chat.messages} />
+  return (
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <Chat id={chat.id} initialMessages={chat.messages} dataOriginal={chat.dataOriginal ?? []} />
+    </React.Suspense>
+  )
 }

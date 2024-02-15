@@ -1,4 +1,4 @@
-import { type Message } from 'ai'
+import { type Message, JSONValue } from 'ai'
 
 export interface Chat extends Record<string, any> {
   id: string
@@ -8,6 +8,7 @@ export interface Chat extends Record<string, any> {
   path: string
   messages: Message[]
   sharePath?: string
+  data?: JSONValue[] | undefined
 }
 
 export type ServerActionResult<Result> = Promise<

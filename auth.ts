@@ -31,24 +31,24 @@ export const {
     //   return token;
     // },
     jwt({ token, account }) {
-      console.log("JWT callback - Account:", account); // Logging the account information
+      // console.log("JWT callback - Account:", account); // Logging the account information
       if (account) {
         token.id = account.providerAccountId; // Using the providerAccountId as the user's ID
       }
-      console.log("JWT callback - Token:", token); // Logging the token information
+      // console.log("JWT callback - Token:", token); // Logging the token information
       return token;
     },
     session: ({ session, token }) => {
-      console.log("Session callback - Token:", token); // Logging the token information
+      // console.log("Session callback - Token:", token); // Logging the token information
       if (session?.user && token?.id) {
         session.user.id = String(token.id);
       }
-      console.log("Session callback - Session:", session); // Logging the session information
+      // console.log("Session callback - Session:", session); // Logging the session information
       return session;
     },
-    authorized({ auth }) {
-      const isAuthorized = !!auth?.user;
-      console.log("Authorized callback - Is Authorized:", isAuthorized); // Logging the authorization status
+    authorized({ auth, request }) {
+      const isAuthorized = !!auth?.user || request.nextUrl.pathname === '/';
+      // console.log("Authorized callback - Is Authorized:", isAuthorized); // Logging the authorization status
       return isAuthorized;
     }
   },

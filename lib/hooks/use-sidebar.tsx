@@ -10,7 +10,7 @@ interface SidebarContext {
   isLoading: boolean
 }
 
-const SidebarContext =createContext<SidebarContext | undefined>(
+const SidebarContext = createContext<SidebarContext | undefined>(
   undefined
 )
 
