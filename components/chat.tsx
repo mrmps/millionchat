@@ -75,21 +75,18 @@ export function Chat({ id, initialMessages, className, dataOriginal = []}: ChatP
     })
 
     // if firstMessage is defined, send it
-    // useEffect(() => {
-    //   console.log('i fire once')
-    //   if (initialMessages?.length === 1 && !path.includes('chat')) {
-    //     //await a second
-    //     setTimeout(() => {
-    //       // append(firstMessage)
-    //       reload()
-    //     }, 200);
-    //   }
-    // }, [])
     useEffect(() => {
-      var isStrict = (function() { return !this; })();
-      console.log("strict", isStrict);
       console.log('i fire once')
+      if (initialMessages?.length === 1 && path.includes('new')) {
+        //await a second
+        reload();
+      }
     }, [])
+    // useEffect(() => {
+    //   var isStrict = (function() { return !this; })();
+    //   console.log("strict", isStrict);
+    //   console.log('i fire once')
+    // }, [])
 
 
   return (
