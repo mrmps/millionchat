@@ -47,7 +47,7 @@ export const {
       return session;
     },
     authorized({ auth, request }) {
-      const isAuthorized = !!auth?.user || request.nextUrl.pathname === '/';
+      const isAuthorized = !!auth?.user || (!request.nextUrl.pathname.includes('/chat') && !request.nextUrl.pathname.includes('/new'));
       // console.log("Authorized callback - Is Authorized:", isAuthorized); // Logging the authorization status
       return isAuthorized;
     }

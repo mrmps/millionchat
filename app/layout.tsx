@@ -10,10 +10,10 @@ import { Providers } from '@/components/providers'
 export const metadata = {
   metadataBase: new URL(`https://${process.env.VERCEL_URL}`),
   title: {
-    default: 'Next.js AI Chatbot',
-    template: `%s - Next.js AI Chatbot`
+    default: 'Rizzsearch AI Twitter Chatbot',
+    template: `%s - Rizzsearch AI Chatbot`
   },
-  description: 'An AI-powered chatbot template built with Next.js and Vercel.',
+  description: 'An AI-powered twitter search engine and chatbot.',
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-16x16.png',
